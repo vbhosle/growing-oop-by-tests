@@ -23,11 +23,11 @@ public class ApplicationRunner {
     thread.setDaemon(true);
     thread.start();
     driver = new AuctionSniperDriver(1000);
-    driver.showSniperStatus(Main.STATUS_JOINING);
+    driver.showsSniperStatus(Main.STATUS_JOINING);
   }
 
   public void showsSniperHasLostAuction() {
-    driver.showSniperStatus(Main.STATUS_LOST);
+    driver.showsSniperStatus(Main.STATUS_LOST);
   }
 
   public void stop() {
