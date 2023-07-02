@@ -19,10 +19,10 @@ public class AuctionMessageTranslatorTest {
     public static final Chat UNUSED_CHAT = null;
 
     private final AuctionEventListener listener = context.mock(AuctionEventListener.class);
-    private final AuctionMessageTranslator translator = new AuctionMessageTranslator();
+    private final AuctionMessageTranslator translator = new AuctionMessageTranslator(listener);
 
     @Test
-    public void notifiesAuctionClosedWhenCloseMessageReceived() throws Exception {
+    public void notifiesAuctionClosedWhenCloseMessageReceived(){
         context.checking(new Expectations() {{
             oneOf(listener).auctionClosed();
         }});
