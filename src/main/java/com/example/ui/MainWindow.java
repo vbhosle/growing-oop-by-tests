@@ -1,21 +1,20 @@
 package com.example.ui;
 
-import com.example.Main;
-
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
 import java.awt.*;
 
-import static com.example.Main.STATUS_JOINING;
-
 public class MainWindow extends JFrame {
     public static final String SNIPER_STATUS_NAME = "sniper status";
+    public static final String MAIN_WINDOW_NAME = "Auction Sniper Main";
+    public static final String STATUS_JOINING = "Joining";
+    public static final String STATUS_LOST = "Lost";
     private final JLabel sniperStatus = createLabel(STATUS_JOINING);
 
     public MainWindow() {
         super("Auction Sniper");
-        setName(Main.MAIN_WINDOW_NAME);
+        setName(MAIN_WINDOW_NAME);
         add(sniperStatus);
         setSize(200, 200);
         pack();
@@ -29,5 +28,9 @@ public class MainWindow extends JFrame {
         label.setText(initialText);
         label.setBorder(new LineBorder(Color.BLACK));
         return label;
+    }
+
+    public void showStatus(String statusText) {
+        sniperStatus.setText(statusText);
     }
 }
