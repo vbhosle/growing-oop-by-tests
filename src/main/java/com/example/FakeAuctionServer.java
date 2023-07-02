@@ -8,6 +8,7 @@ import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
 
 import static com.example.Main.BID_COMMAND_FORMAT;
+import static com.example.Main.CLOSE_COMMAND_FORMAT;
 import static java.lang.String.format;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -44,7 +45,7 @@ public class FakeAuctionServer {
   }
 
   public void announceClosed() throws XMPPException {
-    currentChat.sendMessage(new Message());
+    currentChat.sendMessage(CLOSE_COMMAND_FORMAT);
   }
 
   public void stop() {

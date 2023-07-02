@@ -90,6 +90,11 @@ public class Main implements AuctionEventListener {
 
     @Override
     public void currentPrice(int price, int increment) {
-
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ui.showStatus(MainWindow.STATUS_BIDDING);
+            }
+        });
     }
 }
