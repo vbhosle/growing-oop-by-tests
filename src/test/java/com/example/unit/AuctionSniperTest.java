@@ -1,6 +1,7 @@
 package com.example.unit;
 
 import com.example.Auction;
+import com.example.AuctionEventListener;
 import com.example.AuctionSniper;
 import com.example.SniperListener;
 import org.jmock.Expectations;
@@ -24,7 +25,7 @@ public class AuctionSniperTest {
     }
 
     @Test
-    public void bidsHigherAndReportsBiddingWhenNewPriceArrives() {
+    public void bidsHigherAndReportsBiddingWhenNewPriceArrivesFromOtherBidder() {
         final int price = 1001;
         final int increment = 25;
         context.checking(new Expectations(){{
@@ -32,6 +33,6 @@ public class AuctionSniperTest {
             atLeast(1).of(sniperListener).sniperBidding();
         }});
 
-        sniper.currentPrice(price, increment);
+        sniper.currentPrice(price, increment, AuctionEventListener.PriceSource.FromOtherBidder);
     }
 }
