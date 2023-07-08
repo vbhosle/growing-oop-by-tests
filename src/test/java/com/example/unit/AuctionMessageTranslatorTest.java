@@ -9,7 +9,7 @@ import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.junit.Rule;
 import org.junit.Test;
 
-import static com.example.ApplicationRunner.SNIPER_ID;
+import static com.example.ApplicationRunner.SNIPER_XMPP_ID;
 import static com.example.Main.CLOSE_COMMAND_FORMAT;
 
 public class AuctionMessageTranslatorTest {
@@ -20,7 +20,7 @@ public class AuctionMessageTranslatorTest {
     public static final Chat UNUSED_CHAT = null;
 
     private final AuctionEventListener listener = context.mock(AuctionEventListener.class);
-    private final AuctionMessageTranslator translator = new AuctionMessageTranslator(SNIPER_ID, listener);
+    private final AuctionMessageTranslator translator = new AuctionMessageTranslator(SNIPER_XMPP_ID, listener);
 
     @Test
     public void notifiesAuctionClosedWhenCloseMessageReceived(){
@@ -50,7 +50,7 @@ public class AuctionMessageTranslatorTest {
             exactly(1).of(listener).currentPrice(192, 7, AuctionEventListener.PriceSource.FromSniper);
         }});
 
-        Message message = new Message(); message.setBody("SOLVersion: 1.1; Event: PRICE; CurrentPrice: 192; Increment: 7; Bidder: "+ SNIPER_ID +";" );
+        Message message = new Message(); message.setBody("SOLVersion: 1.1; Event: PRICE; CurrentPrice: 192; Increment: 7; Bidder: "+ SNIPER_XMPP_ID +";" );
         translator.processMessage(UNUSED_CHAT, message);
     }
 }
