@@ -1,8 +1,36 @@
 package com.example.ui;
 
+import com.example.SniperSnapshot;
+
 public enum Column {
-    ITEM_IDENTIFIER, LAST_PRICE, LAST_BID, SNIPER_STATE;
-    public static Column at(int offset) {
-        return values()[offset];
+  ITEM_IDENTIFIER {
+    @Override
+    public Object valueIn(SniperSnapshot snapshot) {
+      return snapshot.itemId;
     }
+  },
+  LAST_PRICE {
+    @Override
+    public Object valueIn(SniperSnapshot snapshot) {
+      return snapshot.lastPrice;
+    }
+  },
+  LAST_BID {
+    @Override
+    public Object valueIn(SniperSnapshot snapshot) {
+      return snapshot.lastBid;
+    }
+  },
+  SNIPER_STATE {
+    @Override
+    public Object valueIn(SniperSnapshot snapshot) {
+      return SnipersTableModel.textFor(snapshot.state);
+    }
+  };
+
+  public static Column at(int offset) {
+    return values()[offset];
+  }
+
+  public abstract Object valueIn(SniperSnapshot snapshot);
 }
