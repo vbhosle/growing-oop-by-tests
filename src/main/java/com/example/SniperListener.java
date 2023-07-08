@@ -9,5 +9,5 @@ public interface SniperListener {
 
     void sniperWon();
 
-    void sniperBidding(SniperState sniperState);
+    void sniperBidding(SniperSnapshot sniperSnapshot);
 }

@@ -29,7 +29,7 @@ public class AuctionSniperTest {
     public void reportsLostWhenAuctionClosesWhenBidding() {
         context.checking(new Expectations() {{
             ignoring(auction);
-            allowing(sniperListener).sniperBidding(with(any(SniperState.class)));
+            allowing(sniperListener).sniperBidding(with(any(SniperSnapshot.class)));
             then(sniperState.is("bidding"));
 
             atLeast(1).of(sniperListener).sniperLost();
@@ -62,7 +62,7 @@ public class AuctionSniperTest {
         final int bid = price + increment;
         context.checking(new Expectations(){{
             oneOf(auction).bid(price+increment);
-            atLeast(1).of(sniperListener).sniperBidding(with(any(SniperState.class)));
+            atLeast(1).of(sniperListener).sniperBidding(with(any(SniperSnapshot.class)));
         }});
 
         sniper.currentPrice(price, increment, AuctionEventListener.PriceSource.FromOtherBidder);

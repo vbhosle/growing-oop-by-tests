@@ -1,6 +1,6 @@
 package com.example.ui;
 
-import com.example.SniperState;
+import com.example.SniperSnapshot;
 
 import javax.swing.*;
 
@@ -43,7 +43,7 @@ public class MainWindow extends JFrame {
         snipers.setStatusText(statusText);
     }
 
-    public void sniperStatusChanged(SniperState sniperState, String statusText) {
-        snipers.sniperStatusChanged(sniperState, statusText);
+    public void sniperStatusChanged(SniperSnapshot sniperSnapshot, String statusText) {
+        snipers.sniperStatusChanged(sniperSnapshot, statusText);
     }
 }

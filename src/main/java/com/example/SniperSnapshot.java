@@ -2,12 +2,12 @@ package com.example;
 
 import java.util.Objects;
 
-public class SniperState {
+public class SniperSnapshot {
   public final String itemId;
   public final int lastPrice;
   public final int lastBid;
 
-  public SniperState(String itemId, int lastPrice, int lastBid) {
+  public SniperSnapshot(String itemId, int lastPrice, int lastBid) {
     this.itemId = itemId;
     this.lastPrice = lastPrice;
     this.lastBid = lastBid;
@@ -16,8 +16,8 @@ public class SniperState {
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof SniperState)) return false;
-    SniperState that = (SniperState) o;
+    if (!(o instanceof SniperSnapshot)) return false;
+    SniperSnapshot that = (SniperSnapshot) o;
     return Objects.equals(itemId, that.itemId) && Objects.equals(lastPrice, that.lastPrice) && Objects.equals(lastBid, that.lastBid);
   }
 
