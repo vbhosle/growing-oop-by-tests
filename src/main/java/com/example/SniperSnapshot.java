@@ -6,11 +6,13 @@ public class SniperSnapshot {
   public final String itemId;
   public final int lastPrice;
   public final int lastBid;
+  public final SniperState state;
 
-  public SniperSnapshot(String itemId, int lastPrice, int lastBid) {
+  public SniperSnapshot(String itemId, int lastPrice, int lastBid, SniperState state) {
     this.itemId = itemId;
     this.lastPrice = lastPrice;
     this.lastBid = lastBid;
+    this.state = state;
   }
 
   @Override
@@ -18,20 +20,21 @@ public class SniperSnapshot {
     if (this == o) return true;
     if (!(o instanceof SniperSnapshot)) return false;
     SniperSnapshot that = (SniperSnapshot) o;
-    return Objects.equals(itemId, that.itemId) && Objects.equals(lastPrice, that.lastPrice) && Objects.equals(lastBid, that.lastBid);
+    return lastPrice == that.lastPrice && lastBid == that.lastBid && Objects.equals(itemId, that.itemId) && state == that.state;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(itemId, lastPrice, lastBid);
+    return Objects.hash(itemId, lastPrice, lastBid, state);
   }
 
   @Override
   public String toString() {
-    return "SniperState{" +
+    return "SniperSnapshot{" +
             "itemId='" + itemId + '\'' +
-            ", lastPrice='" + lastPrice + '\'' +
-            ", lastBid='" + lastBid + '\'' +
+            ", lastPrice=" + lastPrice +
+            ", lastBid=" + lastBid +
+            ", state=" + state +
             '}';
   }
 }

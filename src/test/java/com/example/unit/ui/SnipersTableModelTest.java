@@ -1,6 +1,7 @@
 package com.example.unit.ui;
 
 import com.example.SniperSnapshot;
+import com.example.SniperState;
 import com.example.ui.Column;
 import com.example.ui.MainWindow;
 import com.example.ui.SnipersTableModel;
@@ -43,7 +44,7 @@ public class SnipersTableModelTest {
             oneOf(listener).tableChanged(with(aRowChangedEvent()));
           }
         });
-    model.sniperStatusChanged(new SniperSnapshot("item id", 555, 666), MainWindow.STATUS_BIDDING);
+    model.sniperStatusChanged(new SniperSnapshot("item id", 555, 666, SniperState.BIDDING));
     assertColumnEquals(Column.ITEM_IDENTIFIER, "item id");
     assertColumnEquals(Column.LAST_PRICE, 555);
     assertColumnEquals(Column.LAST_BID, 666);
