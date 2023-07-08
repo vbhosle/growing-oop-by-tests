@@ -10,7 +10,7 @@ import static com.example.ui.MainWindow.STATUS_JOINING;
 public class SnipersTableModel extends AbstractTableModel {
     private final static SniperSnapshot STARTING_UP =
       new SniperSnapshot("", 0, 0, SniperState.JOINING);
-    private static String[] STATUS_TEXT = { MainWindow.STATUS_JOINING, MainWindow.STATUS_BIDDING, MainWindow.STATUS_WINNING, MainWindow.STATUS_LOST, MainWindow.STATUS_WON };
+    private static String[] STATUS_TEXT = { "Joining", "Bidding", "Winning", "Lost", "Won" };
     private String statusText = STATUS_JOINING;
     private SniperSnapshot sniperSnapshot = STARTING_UP;
 
@@ -34,20 +34,18 @@ public class SnipersTableModel extends AbstractTableModel {
             case LAST_BID:
                 return sniperSnapshot.lastBid;
             case SNIPER_STATE:
-                return statusText;
+                return textFor(sniperSnapshot.state);
             default:
                 throw new IllegalArgumentException("No column at " + columnIndex);
         }
     }
 
-    public void setStatusText(String statusText) {
-        this.statusText = statusText;
-        fireTableRowsUpdated(0, 0);
+    private String textFor(SniperState state) {
+        return STATUS_TEXT[state.ordinal()];
     }
 
     public void sniperStatusChanged(SniperSnapshot newSnapshot) {
         this.sniperSnapshot = newSnapshot;
-        this.statusText = STATUS_TEXT[newSnapshot.state.ordinal()];
         fireTableRowsUpdated(0, 0);
     }
 }
