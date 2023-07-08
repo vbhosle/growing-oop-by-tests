@@ -92,6 +92,11 @@ public class Main {
             showStatus(MainWindow.STATUS_BIDDING);
         }
 
+        @Override
+        public void sniperWinning() {
+            showStatus(MainWindow.STATUS_WINNING);
+        }
+
         private void showStatus(String statusText) {
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
