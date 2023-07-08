@@ -5,7 +5,6 @@ import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ChatManagerListener;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
-import org.jivesoftware.smack.packet.Message;
 
 import static com.example.Main.BID_COMMAND_FORMAT;
 import static com.example.Main.CLOSE_COMMAND_FORMAT;
