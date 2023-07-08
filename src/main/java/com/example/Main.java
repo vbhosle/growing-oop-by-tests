@@ -52,18 +52,11 @@ public class Main implements SniperListener {
                 .createChat(
                     auctionId(itemId, connection), null);
         this.notToBeGCd = chat;
-        Auction auction = new Auction() {
-            @Override
-            public void bid(int bid) {
-                try {
-                    chat.sendMessage(String.format(BID_COMMAND_FORMAT, bid));
-                } catch (XMPPException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
+
+        Auction auction = new XMPPAuction(chat);
         chat.addMessageListener(new AuctionMessageTranslator(new AuctionSniper(auction, this)));
-        chat.sendMessage(JOIN_COMMAND_FORMAT);
+
+        auction.join();
     }
 
     private void disconnectWhenUICloses(XMPPConnection connection) {
