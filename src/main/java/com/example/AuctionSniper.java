@@ -1,6 +1,7 @@
 package com.example;
 
 public class AuctionSniper implements AuctionEventListener {
+  private boolean isWinning = false;
   private final Auction auction;
   private final SniperListener sniperListener;
 
@@ -10,14 +11,20 @@ public class AuctionSniper implements AuctionEventListener {
   }
 
   public void auctionClosed() {
-    sniperListener.sniperLost();
+    if(isWinning) {
+      sniperListener.sniperWon();
+    } else {
+      sniperListener.sniperLost();
+    }
   }
 
   @Override
   public void currentPrice(int price, int increment, PriceSource bidder) {
-    if(bidder == PriceSource.FromSniper) {
+    isWinning = bidder == PriceSource.FromSniper;
+    if(isWinning) {
       sniperListener.sniperWinning();
-    } else {
+    }
+    else {
       auction.bid(price+increment);
       sniperListener.sniperBidding();
     }
