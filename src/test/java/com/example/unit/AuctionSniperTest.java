@@ -1,14 +1,13 @@
 package com.example.unit;
 
-import com.example.Auction;
-import com.example.AuctionEventListener;
-import com.example.AuctionSniper;
-import com.example.SniperListener;
+import com.example.*;
 import org.jmock.Expectations;
 import org.jmock.States;
 import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.junit.Rule;
 import org.junit.Test;
+
+import static com.example.FakeAuctionServer.ITEM_ID;
 
 public class AuctionSniperTest {
     @Rule
@@ -60,9 +59,10 @@ public class AuctionSniperTest {
     public void bidsHigherAndReportsBiddingWhenNewPriceArrivesFromOtherBidder() {
         final int price = 1001;
         final int increment = 25;
+        final int bid = price + increment;
         context.checking(new Expectations(){{
             oneOf(auction).bid(price+increment);
-            atLeast(1).of(sniperListener).sniperBidding();
+            atLeast(1).of(sniperListener).sniperBidding(with(any(SniperState.class)));
         }});
 
         sniper.currentPrice(price, increment, AuctionEventListener.PriceSource.FromOtherBidder);

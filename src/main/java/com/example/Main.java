@@ -93,6 +93,11 @@ public class Main {
         }
 
         @Override
+        public void sniperBidding(SniperState sniperState) {
+
+        }
+
+        @Override
         public void sniperWinning() {
             showStatus(MainWindow.STATUS_WINNING);
         }

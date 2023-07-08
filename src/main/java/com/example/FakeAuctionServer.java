@@ -15,6 +15,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class FakeAuctionServer {
   public static final String XMPP_HOSTNAME = "localhost";
+  public static final String ITEM_ID = "item-54321";
   private static final String AUCTION_PASSWORD = "auction";
 
   private final String itemId;

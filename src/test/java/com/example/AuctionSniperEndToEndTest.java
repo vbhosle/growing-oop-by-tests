@@ -6,7 +6,7 @@ import org.junit.Test;
 import static com.example.ApplicationRunner.SNIPER_XMPP_ID;
 
 public class AuctionSniperEndToEndTest {
-    private final FakeAuctionServer auction = new FakeAuctionServer("item-54321");
+    private final FakeAuctionServer auction = new FakeAuctionServer(FakeAuctionServer.ITEM_ID);
     private final ApplicationRunner application = new ApplicationRunner();
 
     @Test
