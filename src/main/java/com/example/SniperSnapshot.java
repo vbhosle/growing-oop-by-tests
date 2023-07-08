@@ -49,4 +49,8 @@ public class SniperSnapshot {
             ", state=" + state +
             '}';
   }
+
+  public SniperSnapshot closed() {
+    return new SniperSnapshot(itemId, lastPrice, lastBid, state.whenAuctionClosed());
+  }
 }

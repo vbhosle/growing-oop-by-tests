@@ -39,24 +39,12 @@ public class ApplicationRunner {
     if (driver != null) driver.dispose();
   }
 
-  public void hasShownSniperIsBidding() {
-    driver.showsSniperStatus(MainWindow.STATUS_BIDDING);
-  }
-
   public void hasShownSniperIsBidding(int lastPrice, int lastBid) {
     driver.showsSniperStatus(itemId, lastPrice, lastBid, MainWindow.STATUS_BIDDING);
   }
 
-  public void hasShownSniperIsWinning() {
-    driver.showsSniperStatus(MainWindow.STATUS_WINNING);
-  }
-
   public void hasShownSniperIsWinning(int winningBid) {
     driver.showsSniperStatus(itemId, winningBid, winningBid, MainWindow.STATUS_WINNING);
-  }
-
-  public void showsSniperHasWonAuction() {
-    driver.showsSniperStatus(MainWindow.STATUS_WON);
   }
 
   public void showsSniperHasWonAuction(int lastPrice) {
