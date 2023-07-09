@@ -1,13 +1,12 @@
 package com.example.ui;
 
+import com.example.SniperListener;
 import com.example.SniperSnapshot;
 import com.example.SniperState;
 
 import javax.swing.table.AbstractTableModel;
 
-import static com.example.ui.MainWindow.STATUS_JOINING;
-
-public class SnipersTableModel extends AbstractTableModel {
+public class SnipersTableModel extends AbstractTableModel implements SniperListener {
     private final static SniperSnapshot STARTING_UP =
       new SniperSnapshot("", 0, 0, SniperState.JOINING);
     private static String[] STATUS_TEXT = { "Joining", "Bidding", "Winning", "Lost", "Won" };
@@ -33,7 +32,8 @@ public class SnipersTableModel extends AbstractTableModel {
         return STATUS_TEXT[state.ordinal()];
     }
 
-    public void sniperStatusChanged(SniperSnapshot newSnapshot) {
+    @Override
+    public void sniperStateChanged(SniperSnapshot newSnapshot) {
         this.sniperSnapshot = newSnapshot;
         fireTableRowsUpdated(0, 0);
     }

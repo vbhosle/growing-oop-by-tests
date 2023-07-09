@@ -1,7 +1,5 @@
 package com.example.ui;
 
-import com.example.SniperSnapshot;
-
 import javax.swing.*;
 
 import java.awt.*;
@@ -15,12 +13,10 @@ public class MainWindow extends JFrame {
     public static final String STATUS_WON = "Won";
     private static final String SNIPERS_TABLE_NAME = "Snipers";
 
-    private final SnipersTableModel snipers = new SnipersTableModel();
-
-    public MainWindow() {
+    public MainWindow(SnipersTableModel snipers) {
         super("Auction Sniper");
         setName(MAIN_WINDOW_NAME);
-        fillContentPane(makeSnipersTable());
+        fillContentPane(makeSnipersTable(snipers));
         setSize(100, 100);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,13 +29,9 @@ public class MainWindow extends JFrame {
         contentPane.add(new JScrollPane(snipersTable), BorderLayout.CENTER);
     }
 
-    private JTable makeSnipersTable() {
+    private JTable makeSnipersTable(SnipersTableModel snipers) {
         final JTable snipersTable = new JTable(snipers);
         snipersTable.setName(SNIPERS_TABLE_NAME);
         return snipersTable;
-    }
-
-    public void sniperStatusChanged(SniperSnapshot sniperSnapshot) {
-        snipers.sniperStatusChanged(sniperSnapshot);
     }
 }

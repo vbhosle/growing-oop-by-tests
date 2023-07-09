@@ -1,6 +1,7 @@
 package com.example;
 
 import com.example.ui.MainWindow;
+import com.example.ui.SnipersTableModel;
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
@@ -22,6 +23,9 @@ public class Main {
     public static final String AUCTION_RESOURCE = "Auction";
     public static final String ITEM_ID_AS_LOGIN = "auction-%s";
     public static final String AUCTION_ID_FORMAT = ITEM_ID_AS_LOGIN + "@%s/" + AUCTION_RESOURCE;
+
+    private final SnipersTableModel snipers = new SnipersTableModel();
+
     private MainWindow ui;
 
     @SuppressWarnings("unused") private Chat notToBeGCd;
@@ -31,7 +35,7 @@ public class Main {
     }
 
     private void startUserInterface() throws Exception {
-        SwingUtilities.invokeAndWait(() -> ui = new MainWindow());
+        SwingUtilities.invokeAndWait(() -> ui = new MainWindow(snipers));
     }
 
     public static void main(String... args) throws Exception {
@@ -54,7 +58,7 @@ public class Main {
         this.notToBeGCd = chat;
 
         Auction auction = new XMPPAuction(chat);
-        chat.addMessageListener(new AuctionMessageTranslator(connection.getUser(), new AuctionSniper(itemId, auction, new SniperStateDisplayer())));
+        chat.addMessageListener(new AuctionMessageTranslator(connection.getUser(), new AuctionSniper(itemId, auction, new SwingThreadSniperListener(snipers))));
 
         auction.join();
     }
@@ -81,14 +85,20 @@ public class Main {
         return String.format(AUCTION_ID_FORMAT, itemId, connection.getServiceName());
     }
 
-    private class SniperStateDisplayer implements SniperListener {
+    private class SwingThreadSniperListener implements SniperListener {
+
+        private final SniperListener listener;
+
+        private SwingThreadSniperListener(SniperListener listener) {
+            this.listener = listener;
+        }
 
         @Override
         public void sniperStateChanged(SniperSnapshot sniperSnapshot) {
           SwingUtilities.invokeLater(
               new Runnable() {
                 public void run() {
-                  ui.sniperStatusChanged(sniperSnapshot);
+                    listener.sniperStateChanged(sniperSnapshot);
                 }
               });
         }
