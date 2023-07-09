@@ -1,7 +1,7 @@
 # Openfire
 - [Download .tar.gz](https://github.com/igniterealtime/Openfire/releases/tag/v4.0.3) and extract
-- start using command `{openfire_directory}/bin/openfire start`
-- stop using command `{openfire_directory}/bin/openfire stop`
+- start using command `./{openfire_directory}/bin/openfire start`
+- stop using command `./{openfire_directory}/bin/openfire stop`
 
 ## Server setup
 - goto `http://localhost:9090/`
