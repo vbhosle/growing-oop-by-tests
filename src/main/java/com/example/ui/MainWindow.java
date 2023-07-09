@@ -1,5 +1,7 @@
 package com.example.ui;
 
+import org.hamcrest.Matcher;
+
 import javax.swing.*;
 
 import java.awt.*;
@@ -11,6 +13,7 @@ public class MainWindow extends JFrame {
     public static final String STATUS_BIDDING = "Bidding";
     public static final String STATUS_WINNING = "Winning";
     public static final String STATUS_WON = "Won";
+    public static final String APPLICATION_TITLE = "Auction Sniper";
     private static final String SNIPERS_TABLE_NAME = "Snipers";
 
     public MainWindow(SnipersTableModel snipers) {
