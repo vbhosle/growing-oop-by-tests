@@ -41,15 +41,16 @@ public class ApplicationRunner {
     if (driver != null) driver.dispose();
   }
 
-  public void hasShownSniperIsBidding(int lastPrice, int lastBid) {
-    driver.showsSniperStatus(itemId, lastPrice, lastBid, MainWindow.STATUS_BIDDING);
+  public void hasShownSniperIsBidding(FakeAuctionServer auction, int lastPrice, int lastBid) {
+    driver.showsSniperStatus(auction.getItemId(), lastPrice, lastBid, MainWindow.STATUS_BIDDING);
   }
 
-  public void hasShownSniperIsWinning(int winningBid) {
-    driver.showsSniperStatus(itemId, winningBid, winningBid, MainWindow.STATUS_WINNING);
+  public void hasShownSniperIsWinning(FakeAuctionServer auction, int winningBid) {
+    driver.showsSniperStatus(
+        auction.getItemId(), winningBid, winningBid, MainWindow.STATUS_WINNING);
   }
 
-  public void showsSniperHasWonAuction(int lastPrice) {
-    driver.showsSniperStatus(itemId, lastPrice, lastPrice, MainWindow.STATUS_WON);
+  public void showsSniperHasWonAuction(FakeAuctionServer auction, int lastPrice) {
+    driver.showsSniperStatus(auction.getItemId(), lastPrice, lastPrice, MainWindow.STATUS_WON);
   }
 }
