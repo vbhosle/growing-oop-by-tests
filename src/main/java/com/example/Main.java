@@ -9,6 +9,8 @@ import org.jivesoftware.smack.XMPPException;
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -28,7 +30,8 @@ public class Main {
 
     private MainWindow ui;
 
-    @SuppressWarnings("unused") private Chat notToBeGCd;
+  @SuppressWarnings("unused")
+  private List<Chat> notToBeGCd = new ArrayList<>();
 
     public Main() throws Exception {
         startUserInterface();
@@ -40,22 +43,20 @@ public class Main {
 
     public static void main(String... args) throws Exception {
         Main main = new Main();
-        main.joinAuction(
-                connect(args[ARG_HOSTNAME],
-                        args[ARG_USERNAME],
-                        args[ARG_PASSWORD]),
-                args[ARG_ITEM_ID]
-        );
+        XMPPConnection connection = connection(args[ARG_HOSTNAME], args[ARG_USERNAME], args[ARG_PASSWORD]);
+        main.disconnectWhenUICloses(connection);
+
+        for(int i = 3; i < args.length; i++)
+            main.joinAuction(connection, args[i]);
     }
 
     private void joinAuction(XMPPConnection connection, String itemId) throws XMPPException{
-        disconnectWhenUICloses(connection);
         Chat chat =
             connection
                 .getChatManager()
                 .createChat(
                     auctionId(itemId, connection), null);
-        this.notToBeGCd = chat;
+        this.notToBeGCd.add(chat);
 
         Auction auction = new XMPPAuction(chat);
         chat.addMessageListener(new AuctionMessageTranslator(connection.getUser(), new AuctionSniper(itemId, auction, new SwingThreadSniperListener(snipers))));
@@ -74,7 +75,7 @@ public class Main {
         });
     }
 
-    private static XMPPConnection connect(String hostname, String username, String password) throws XMPPException {
+    private static XMPPConnection connection(String hostname, String username, String password) throws XMPPException {
         XMPPConnection connection = new XMPPConnection(hostname);
         connection.connect();
         connection.login(username, password, AUCTION_RESOURCE);
