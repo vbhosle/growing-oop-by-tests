@@ -9,7 +9,6 @@ public class ApplicationRunner {
   public static final String SNIPER_XMPP_ID = "sniper@localhost/Auction";
 
   private AuctionSniperDriver driver;
-  private String itemId;
 
   public void startBiddingIn(final FakeAuctionServer... auctions) {
     Thread thread =

@@ -50,7 +50,8 @@ public class Main {
             main.joinAuction(connection, args[i]);
     }
 
-    private void joinAuction(XMPPConnection connection, String itemId) throws XMPPException{
+    private void joinAuction(XMPPConnection connection, String itemId) throws Exception {
+        safelyAddItemToModel(itemId);
         Chat chat =
             connection
                 .getChatManager()
@@ -64,6 +65,10 @@ public class Main {
         auction.join();
     }
 
+    private void safelyAddItemToModel(final String itemId) throws Exception {
+        SwingUtilities.invokeAndWait(() -> snipers.addSniper(SniperSnapshot.joining(itemId)));
+    }
+
     private void disconnectWhenUICloses(XMPPConnection connection) {
     ui.addWindowListener(
         new WindowAdapter() {
@@ -71,6 +76,13 @@ public class Main {
           public void windowClosed(WindowEvent e) {
             System.out.println("windowClosed");
             connection.disconnect();
+
+            //sometimes one of end to end test fails because windowClosed is not processed on MacOS.
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
           }
         });
     }
